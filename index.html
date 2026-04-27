@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Best Hacks — Coming Soon</title>
+  <meta name="description" content="The Best Hacks. Coming soon. thebesthacks.com" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber: #ffbf00;
+      --amber-dim: rgba(255,191,0,0.55);
+      --amber-ghost: rgba(255,191,0,0.08);
+      --black: #0c0b09;
+      --white: #ffffff;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--black);
+      color: var(--amber);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Grain ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.045;
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* ── Background hex pattern ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(255,191,0,0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,191,0,0.04) 0%, transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Diagonal ribbon ── */
+    .ribbon {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+      overflow: hidden;
+    }
+
+    .ribbon-band {
+      position: absolute;
+      top: 20%;
+      left: -80%;
+      width: 260%;
+      padding: 14px 0;
+      background: var(--amber);
+      color: var(--black);
+      transform: rotate(-26deg);
+      transform-origin: center center;
+      overflow: hidden;
+      box-shadow:
+        0 3px 0 rgba(0,0,0,0.4),
+        0 -3px 0 rgba(0,0,0,0.25),
+        0 6px 30px rgba(255,191,0,0.18);
+      animation: ribbonReveal 1s 0.4s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes ribbonReveal {
+      from { opacity: 0; transform: rotate(-26deg) translateY(-30px); }
+      to   { opacity: 1; transform: rotate(-26deg) translateY(0); }
+    }
+
+    /* scrolling text track */
+    .ribbon-track {
+      display: flex;
+      width: max-content;
+      animation: scrollLeft 55s linear infinite;
+      white-space: nowrap;
+    }
+
+    .ribbon-track span {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.7rem, 2vw, 0.85rem);
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--black);
+      padding-right: 0;
+    }
+
+    @keyframes scrollLeft {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── Page layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: clamp(1.5rem, 6vw, 3rem);
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: clamp(3rem, 10vw, 6rem);
+      gap: 0;
+    }
+
+    /* ── Logo ── */
+    .logo-wrap {
+      width: clamp(90px, 34vw, 160px);
+      margin-bottom: clamp(1.8rem, 6vw, 3rem);
+      animation: floatIn 1s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .logo-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 22px rgba(255,191,0,0.4));
+      animation: glowPulse 3.5s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { filter: drop-shadow(0 0 16px rgba(255,191,0,0.32)); }
+      50%       { filter: drop-shadow(0 0 40px rgba(255,191,0,0.7)); }
+    }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── Site name ── */
+    .site-name {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      font-style: normal;
+      font-size: clamp(2.2rem, 11vw, 5.4rem);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      animation: slideUp 0.9s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── Claim ── */
+    .claim {
+      margin-top: clamp(0.5rem, 2vw, 0.85rem);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      color: var(--amber);
+      opacity: 0.8;
+      animation: slideUp 0.9s 0.28s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: clamp(36px, 14vw, 70px);
+      height: 2px;
+      background: var(--amber);
+      margin: clamp(1.8rem, 6vw, 2.8rem) auto;
+      transform-origin: left;
+      animation: expandIn 0.8s 0.42s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6em;
+      border: 1.5px solid rgba(255,191,0,0.3);
+      padding: 0.5em 1.15em;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.65rem, 2.6vw, 0.78rem);
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,191,0,0.55);
+      animation: fadeIn 1s 0.58s both;
+    }
+
+    .badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: blink 1.5s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.15; }
+    }
+
+    /* ── Tagline ── */
+    .tagline-block {
+      margin-top: clamp(2rem, 7vw, 3.5rem);
+      max-width: 320px;
+      animation: fadeIn 1s 0.72s both;
+    }
+
+    .tagline-block p {
+      font-family: Arial, Helvetica, sans-serif;
+      font-style: italic;
+      font-size: clamp(0.85rem, 3.2vw, 0.95rem);
+      line-height: 1.75;
+      color: rgba(255,191,0,0.38);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid rgba(255,191,0,0.1);
+      padding-top: clamp(1rem, 4vw, 1.5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      animation: fadeIn 1s 0.95s both;
+    }
+
+    footer p, footer a {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.58rem, 2.2vw, 0.66rem);
+      color: rgba(255,191,0,0.2);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    footer a:hover { color: rgba(255,191,0,0.5); }
+
+    .imprint-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.58rem, 2.2vw, 0.66rem);
+      color: rgba(255,191,0,0.2);
+      letter-spacing: 0.05em;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      padding: 0;
+      margin-bottom: 0.2rem;
+      transition: color 0.2s;
+    }
+
+    .imprint-toggle:hover { color: rgba(255,191,0,0.5); }
+
+    .imprint-details {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease;
+    }
+
+    .imprint-details.open { max-height: 120px; }
+
+    /* ── Keyframes ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes expandIn {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Diagonal ribbon with scrolling text -->
+<div class="ribbon" aria-hidden="true">
+  <div class="ribbon-band">
+    <div class="ribbon-track">
+      <!-- two identical sets so the loop is seamless -->
+      <span>⚠ UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; </span>
+      <span>⚠ UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; UNDER CONSTRUCTION &nbsp;·&nbsp; </span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <main class="main">
+
+    <!-- Logo -->
+    <div class="logo-wrap">
+      <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 156.262 144.407">
+        <g transform="matrix(0.99073487,0,0,0.99073487,186.61494,2.4370252)">
+          <path d="m -109.16602,7.2265625 c -0.13666,0.0017 -0.27279,0.017412 -0.40625,0.046875 -3.19494,0.029452 -6.17603,1.6944891 -7.78515,4.4824215 l -31.25,54.126953 -31.25,54.126958 h 0.002 c -3.41988,5.92217 1.01692,13.60908 7.85547,13.60937 h 62.5 62.501953 c 6.838552,-3.2e-4 11.277321,-7.68721 7.857422,-13.60937 l -31.25,-54.126958 -31.251955,-54.126953 c -1.46518,-2.5386342 -4.07917,-4.1634136 -6.97851,-4.4492184 -0.14501,-0.042788 -0.2944,-0.068998 -0.44532,-0.078125 h -0.004 c -0.0312,-0.00138 -0.0625,-0.00203 -0.0937,-0.00195 z" style="fill:#FFBF00;fill-opacity:1;stroke:none;"/>
+          <path style="fill:#FFCF40;fill-opacity:1;stroke:none;" d="m -109.16545,9.2265625 c -2.63992,-0.1247523 -5.13786,1.2403375 -6.45899,3.5292965 l -31.25,54.126953 -31.25,54.126958 c -2.67464,4.63164 0.77657,10.60914 6.125,10.60937 h 62.5 62.50196 c 5.34844,-2.5e-4 8.79965,-5.97774 6.125,-10.60937 l -31.25,-54.126958 -31.25196,-54.126953 c -1.20213,-2.082863 -3.38689,-3.4150037 -5.78906,-3.5292965 h -0.002 z"/>
+          <path style="fill:#000000;fill-opacity:1;stroke:none;" d="m -109.25919,11.224609 c -1.89626,-0.08961 -3.68385,0.887082 -4.63282,2.53125 l -31.25,54.126953 -31.25,54.126958 c -1.95283,3.38168 0.48755,7.6092 4.39258,7.60937 h 62.5 62.50196 c 3.905026,-1.8e-4 6.345394,-4.2277 4.39257,-7.60937 l -31.25,-54.126958 -31.25195,-54.126953 c -0.86311,-1.495461 -2.42763,-2.44919 -4.15234,-2.53125 z"/>
+          <path style="fill:#FFBF00;fill-opacity:1;stroke:none;" d="m -46.997381,124.54655 -62.501079,0 -62.50108,0 31.25054,-54.127524 31.25054,-54.127522 31.25054,54.127521 z"/>
+          <g transform="translate(-188.06236)">
+            <circle r="8.8173475" cy="111.11701" cx="78.564362" style="fill:#000000;fill-opacity:1;stroke:none;"/>
+            <path d="m 78.564453,42.955078 c -4.869714,-5.59e-4 -8.817839,3.946692 -8.818359,8.816406 3.15625,37.460938 0,0 3.15625,37.460938 8.93e-4,3.126411 2.535698,5.660342 5.662109,5.660156 3.126411,1.86e-4 5.661216,-2.533745 5.662109,-5.660156 3.154297,-37.460938 0,0 3.154297,-37.460938 -5.2e-4,-4.868951 -3.947455,-8.815886 -8.816406,-8.816406 z" style="fill:#000000;fill-opacity:1;stroke:none;"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="site-name">The Best<br>Hacks</h1>
+    <p class="claim">the easy wins. right now.</p>
+
+    <div class="divider"></div>
+
+    <div class="badge">Coming Soon</div>
+
+    <div class="tagline-block">
+      <p>Good things ripen.<br>Check back shortly.</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <button class="imprint-toggle" onclick="toggleImprint()" id="imprintBtn" aria-expanded="false">Impressum</button>
+    <div class="imprint-details" id="imprintBox" role="region">
+      <p>Andreas Dittes</p>
+      <p>Bautzener Str. 35 · 10829 Berlin</p>
+      <p><a href="mailto:thebesthacks@dittes.info">thebesthacks@dittes.info</a></p>
+    </div>
+  </footer>
+</div>
+
+<script>
+  function toggleImprint() {
+    const box = document.getElementById('imprintBox');
+    const btn = document.getElementById('imprintBtn');
+    const isOpen = box.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen);
+  }
+</script>
+</body>
+</html>
